@@ -1,8 +1,16 @@
-<!DOCTYPE html>
-<html>
-<frameset cols="25%,50%,25%">
-<frame src= "col1.html" />
-<frame src= "col2.html" />
-<frame src= "col3.html" />
-</frameset>
-</html>
+<style>
+.column {width:50%;float:left;height:500px;text-align:center}
+@media screen and (max-width: 768px){
+.column{width: 100%;} 
+}
+</style>
+<body>
+<div style="height:150px;background-color:#f9c81e"></div>
+<div class="column">
+<h1>Column 1</h1>
+</div>
+<div class="column">
+<h1>Column 2</h1>
+</div>
+<div style="clear:both;height:75px;background-color:#f9c81e"></div>
+</body>

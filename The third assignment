@@ -1,0 +1,17 @@
+<style>
+#header {height:150px;background-color:#f9c81e;padding:1em}
+#article {height:400px;background-color:#fffaf3;padding:1em}
+#footer {height:75px;background-color:#f9c81e;padding:1em}
+a:link {color:#FF0000;}
+a:visited {color:#00FF00;}
+a:hover {color:#FF00FF;}
+a:active {color:#0000FF;}
+</style>
+<body>
+<div id="header"></div>
+<div id="article">
+<h1>Article</h1>
+<p><a href="http://www.google.com" target="_blank">Link to Google</a></p>
+</div>
+<div id="footer"></div>
+</body>

@@ -1,15 +1,21 @@
 <style>
-#header {height:150px;background-color:#f9c81e;padding:1em}
-#article {margin:auto; width:70%; height:400px;background-color:#fffaf3;padding:1em}
-#footer {height:75px;background-color:#f9c81e;padding:1em}
-#title {position:absolute; left:100px; top:50px;}
+.center {
+margin: auto; width: 70%; background-color: red;
+animation-name: anime; animation-duration: 4s; animation-timing-function: linear;
+}
+@keyframes anime {
+0% {background-color: red;}
+25% {background-color: yellow;}
+50% {background-color: blue;}
+100% {background-color: green;}
+}
 </style>
 <body>
-<div id="header">
-<h1 id="title">Header</h1>
+<div class="center">
+<p>Hello World!</p>
+<p>This is the first paragraph</p>
 </div>
-<div id="article"><p>Your content here</p></div>
-<div id="footer"></div>
 </body>
+
 
 

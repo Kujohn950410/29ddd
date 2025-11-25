@@ -2,65 +2,39 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>動畫擲骰子</title>
-
-<style>
-    .dice {
-        width: 80px;
-        height: 80px;
-        background: #fff;
-        border: 3px solid #000;
-        border-radius: 15px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 40px;
-        font-weight: bold;
-        margin-top: 20px;
-        transition: transform 0.2s;
-    }
-
-    /* 旋轉動畫 */
-    .rolling {
-        animation: roll 0.2s infinite;
-    }
-
-    @keyframes roll {
-        0% { transform: rotate(0deg); }
-        25% { transform: rotate(90deg); }
-        50% { transform: rotate(180deg); }
-        75% { transform: rotate(270deg); }
-        100% { transform: rotate(360deg); }
-    }
-
-</style>
+<title>麻將簡單分數計算</title>
 </head>
-
 <body>
 
-<h2>動畫版擲骰子</h2>
+<h2>麻將簡單分數計算</h2>
 
-<button onclick="rollDice()">擲骰子</button>
+<p>玩家分數：<span id="score">0</span></p>
 
-<div id="dice" class="dice">🎲</div>
-
-<p id="result"></p>
+<button onclick="win()">胡牌 +10 分</button>
+<button onclick="lose()">輸牌 -5 分</button>
+<button onclick="resetScore()">重置分數</button>
 
 <script>
-function rollDice() {
-    let dice = document.getElementById("dice");
-    let result = document.getElementById("result");
+// 玩家分數
+let score = 0;
 
-    result.innerHTML = "";
-    dice.classList.add("rolling");  // 開始轉動
+// 胡牌加分
+function win() {
+    score += 10;
+    document.getElementById("score").innerText = score;
+}
 
-    // 1 秒後停止
-    setTimeout(() => {
-        dice.classList.remove("rolling");
-        let num = Math.floor(Math.random() * 6) + 1; // 1~6
-        dice.innerHTML = num;
-        result.innerHTML = "結果：" + num;
-    }, 1000);
+// 輸牌扣分
+function lose() {
+    score -= 5;
+    if(score < 0) score = 0; // 不讓分數為負
+    document.getElementById("score").innerText = score;
+}
+
+// 重置分數
+function resetScore() {
+    score = 0;
+    document.getElementById("score").innerText = score;
 }
 </script>
 

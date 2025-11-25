@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<style>
+#animate { width: 50px; height: 50px; position: absolute; background: red; }
+</style>
+<body>
+<div id="animate"></div>
+<script>
+let area = document.querySelector("body");
+area.addEventListener("keydown", function(event){
+let elem = document.getElementById("animate");
+let x = elem.offsetLeft || 0;
+let y = elem.offsetTop || 0;
+let key = event.key;
+switch(key){
+case "ArrowUp":
+elem.style.top = (y-30) + 'px';
+break;
+case "ArrowDown":
+elem.style.top = (y+30) + 'px';
+break;
+case "ArrowLeft":
+elem.style.left = (x-30) + 'px';
+break;
+case "ArrowRight":
+elem.style.left = (x+30) + 'px';
+break;
+}
+});</script></body></html>

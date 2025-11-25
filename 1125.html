@@ -1,27 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>麻將擲骰子決定抓位</title>
+  <meta charset="utf-8">
+  <title>麻將小遊戲 - 抓牌比大小</title>
 </head>
 <body>
 
-<h2>🎲 擲骰子決定從哪裡抓牌</h2>
+<h2>麻將小遊戲：抓 4 張牌比大小</h2>
 
-<button onclick="rollDice()">擲骰子</button>
+<button onclick="drawTiles()">抓 4 張牌</button>
 
 <p id="result"></p>
 
 <script>
-function rollDice() {
-    // 隨機 1～6
-    let dice = Math.floor(Math.random() * 6) + 1;
+// 建立一個 1~9 萬的麻將牌（每張 4 張）
+let tiles = [];
+for (let i = 1; i <= 9; i++) {
+    for (let j = 0; j < 4; j++) {
+        tiles.push(i);
+    }
+}
 
-    // 顯示結果
+// 抓牌函式
+function drawTiles() {
+    // 洗牌（Fisher-Yates 洗牌法）
+    let deck = [...tiles]; // 複製牌組
+    for (let i = deck.length - 1; i > 0; i--) {
+        let r = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[r]] = [deck[r], deck[i]];
+    }
+
+    // 抓 4 張
+    let hand = deck.slice(0, 4);
+
+    // 計算總和
+    let sum = hand.reduce((a, b) => a + b, 0);
+
+    // 顯示
     document.getElementById("result").innerHTML =
-        "骰子結果：<b>" + dice + "</b>";
+        "抽到的牌：" + hand.join("、") +
+        "<br>牌總和：" + sum;
 }
 </script>
 
 </body>
 </html>
+

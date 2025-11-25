@@ -1,48 +1,12 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>麻將小遊戲 - 抓牌比大小</title>
-</head>
 <body>
-
-<h2>麻將小遊戲：抓 4 張牌比大小</h2>
-
-<button onclick="drawTiles()">抓 4 張牌</button>
-
-<p id="result"></p>
-
+Enter your name: <input type="text" id="name">
 <script>
-// 建立一個 1~9 萬的麻將牌（每張 4 張）
-let tiles = [];
-for (let i = 1; i <= 9; i++) {
-    for (let j = 0; j < 4; j++) {
-        tiles.push(i);
-    }
-}
-
-// 抓牌函式
-function drawTiles() {
-    // 洗牌（Fisher-Yates 洗牌法）
-    let deck = [...tiles]; // 複製牌組
-    for (let i = deck.length - 1; i > 0; i--) {
-        let r = Math.floor(Math.random() * (i + 1));
-        [deck[i], deck[r]] = [deck[r], deck[i]];
-    }
-
-    // 抓 4 張
-    let hand = deck.slice(0, 4);
-
-    // 計算總和
-    let sum = hand.reduce((a, b) => a + b, 0);
-
-    // 顯示
-    document.getElementById("result").innerHTML =
-        "抽到的牌：" + hand.join("、") +
-        "<br>牌總和：" + sum;
-}
+let x = document.getElementById("name");
+x.addEventListener("change", function(){
+x.value = x.value.toUpperCase();
+});
 </script>
-
 </body>
 </html>
-

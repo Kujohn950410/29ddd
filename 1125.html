@@ -1,18 +1,76 @@
 <!DOCTYPE html>
 <html>
-<style>
-#animate { width: 50px; height: 50px; position: absolute; background: red; }
-</style>
+<head><meta charset="utf-8"><title>簡易麻將聽牌計算機</title></head>
 <body>
-<div id="animate"></div>
+
+<h2>🀄 簡易麻將聽牌計算機</h2>
+
+<p>請輸入手牌（例如：1萬 2萬 4萬 5筒 7條）</p>
+<input type="text" id="tiles" size="40">
+
+<br><br>
+<button onclick="simpleTing()">計算聽牌</button>
+
+<p id="result"></p>
+
 <script>
-setInterval(display, 3000);
-function display(){
-let elem = document.getElementById("animate");
-let x = Math.floor((Math.random() * 600) + 1);
-let y = Math.floor((Math.random() * 600) + 1);
-elem.style.left = x + "px";
-elem.style.top = y + "px";
+// 所有萬筒條的簡單集合
+let numbers = ["1","2","3","4","5","6","7","8","9"];
+let suits = ["萬","筒","條"];
+
+function simpleTing(){
+    let text = document.getElementById("tiles").value.trim();
+    let list = text.split(" ");
+
+    let ting = [];
+
+    // 找所有萬筒條
+    for(let s of suits){
+        let have = [];
+
+        // 把該花色的數字挑出來
+        for(let tile of list){
+            if(tile.endsWith(s)){
+                have.push(tile[0]);
+            }
+        }
+
+        // 檢查相鄰數字是否缺少
+        for(let i=0;i<numbers.length;i++){
+            let n = numbers[i];
+
+            // 聽刻子：有兩張一樣的 → 聽第三張
+            let sameCount = have.filter(x => x === n).length;
+            if(sameCount === 2){
+                ting.push(n + s);
+            }
+
+            // 聽順子：例如有 1萬,3萬 → 聽 2萬
+            if(have.includes(numbers[i-1]) && have.includes(numbers[i+1])){
+                ting.push(n + s);
+            }
+
+            // 聽邊張、坎張
+            if(have.includes(numbers[i-1]) && have.includes(n) && !have.includes(numbers[i+1])){
+                ting.push(numbers[i+1] + s);
+            }
+            if(have.includes(n) && have.includes(numbers[i+1]) && !have.includes(numbers[i-1])){
+                ting.push(numbers[i-1] + s);
+            }
+        }
+    }
+
+    // 去除重複
+    ting = [...new Set(ting)].filter(x => x !== "undefined萬" && x !== "undefined筒" && x !== "undefined條");
+
+    if(ting.length === 0){
+        document.getElementById("result").innerHTML = "❌ 目前沒有聽牌（簡易判斷）";
+    } else {
+        document.getElementById("result").innerHTML =
+            "🎉 你可能在聽：<b>" + ting.join("、") + "</b>";
+    }
 }
 </script>
-</body></html>
+
+</body>
+</html>

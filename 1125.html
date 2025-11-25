@@ -1,76 +1,137 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8"><title>簡易麻將聽牌計算機</title></head>
+<head><meta charset="utf-8"><title>麻將聽牌計算機</title></head>
 <body>
 
-<h2>🀄 簡易麻將聽牌計算機</h2>
+<h2>🀄 麻將聽牌計算機（簡易版）</h2>
 
-<p>請輸入手牌（例如：1萬 2萬 4萬 5筒 7條）</p>
-<input type="text" id="tiles" size="40">
+<p>請輸入你的牌（例如：一萬 二萬 三萬 五筒 七條 東 中）</p>
 
+<input type="text" id="tiles" size="50">
 <br><br>
-<button onclick="simpleTing()">計算聽牌</button>
+
+<button type="button" onclick="calcTing()">計算聽牌</button>
 
 <p id="result"></p>
 
 <script>
-// 所有萬筒條的簡單集合
-let numbers = ["1","2","3","4","5","6","7","8","9"];
-let suits = ["萬","筒","條"];
+// 台灣16張麻將牌組
+const allTiles = [
+    "一萬","二萬","三萬","四萬","五萬","六萬","七萬","八萬","九萬",
+    "一筒","二筒","三筒","四筒","五筒","六筒","七筒","八筒","九筒",
+    "一條","二條","三條","四條","五條","六條","七條","八條","九條",
+    "東","南","西","北","中","發","白"
+];
 
-function simpleTing(){
-    let text = document.getElementById("tiles").value.trim();
-    let list = text.split(" ");
+// 簡易判斷：確認一組三張是否是面子（順或刻）
+function isSet(a, b, c){
+    // 刻子（同一張）
+    if(a === b && b === c) return true;
 
-    let ting = [];
-
-    // 找所有萬筒條
+    // 順子（同花色 且 三連續）
+    let suits = ["萬","筒","條"];
     for(let s of suits){
-        let have = [];
+        if(a.endsWith(s) && b.endsWith(s) && c.endsWith(s)){
+            let n1 = "一二三四五六七八九".indexOf(a[0]);
+            let n2 = "一二三四五六七八九".indexOf(b[0]);
+            let n3 = "一二三四五六七八九".indexOf(c[0]);
 
-        // 把該花色的數字挑出來
-        for(let tile of list){
-            if(tile.endsWith(s)){
-                have.push(tile[0]);
-            }
+            if(n1+1 === n2 && n2+1 === n3) return true;
         }
+    }
+    return false;
+}
 
-        // 檢查相鄰數字是否缺少
-        for(let i=0;i<numbers.length;i++){
-            let n = numbers[i];
+// 檢查 14 張是否能胡牌（判斷是否 4 副面子 + 1 對將）
+function canWin(tiles){
+    if(tiles.length !== 14) return false;
+    // 嘗試每一張當將牌
+    for(let i=0;i<tiles.length-1;i++){
+        if(tiles[i] === tiles[i+1]){ 
+            let remain = tiles.slice();  
+            remain.splice(i,2); // 把眼移除
+            if(checkSets(remain)) return true;
+        }
+    }
+    return false;
+}
 
-            // 聽刻子：有兩張一樣的 → 聽第三張
-            let sameCount = have.filter(x => x === n).length;
-            if(sameCount === 2){
-                ting.push(n + s);
-            }
+// 判斷剩下 12 張是否為 4 個面子
+function checkSets(tiles){
+    if(tiles.length === 0) return true; // 剛好拆完
+    let a = tiles[0];
 
-            // 聽順子：例如有 1萬,3萬 → 聽 2萬
-            if(have.includes(numbers[i-1]) && have.includes(numbers[i+1])){
-                ting.push(n + s);
-            }
+    // 找刻子
+    let idx = tiles.indexOf(a);
+    let idx2 = tiles.indexOf(a, idx+1);
+    let idx3 = tiles.indexOf(a, idx2+1);
+    if(idx2 !== -1 && idx3 !== -1){
+        let newTiles = tiles.slice();
+        newTiles.splice(idx3,1);
+        newTiles.splice(idx2,1);
+        newTiles.splice(idx,1);
+        if(checkSets(newTiles)) return true;
+    }
 
-            // 聽邊張、坎張
-            if(have.includes(numbers[i-1]) && have.includes(n) && !have.includes(numbers[i+1])){
-                ting.push(numbers[i+1] + s);
-            }
-            if(have.includes(n) && have.includes(numbers[i+1]) && !have.includes(numbers[i-1])){
-                ting.push(numbers[i-1] + s);
-            }
+    // 找順子
+    let next1 = nextTile(a);
+    let next2 = nextTile(next1);
+
+    if(next1 && next2 &&
+       tiles.includes(next1) && tiles.includes(next2)){
+        let copy = tiles.slice();
+        copy.splice(copy.indexOf(a),1);
+        copy.splice(copy.indexOf(next1),1);
+        copy.splice(copy.indexOf(next2),1);
+        if(checkSets(copy)) return true;
+    }
+
+    return false;
+}
+
+// 找下一張（順子用）
+function nextTile(t){
+    let suits = {"萬": "一二三四五六七八九",
+                 "筒": "一二三四五六七八九",
+                 "條": "一二三四五六七八九"};
+    let suit = t[t.length - 1];
+    if(!suits[suit]) return null; // 字牌沒有順子
+    let num = t[0];
+    let index = suits[suit].indexOf(num);
+    if(index === -1 || index === 8) return null;
+    return suits[suit][index+1] + suit;
+}
+
+function calcTing(){
+    let input = document.getElementById("tiles").value.trim();
+    let hand = input.split(" ");
+
+    if(hand.length !== 13){
+        document.getElementById("result").innerHTML =
+            "⚠ 請輸入 **13 張牌** 才能計算聽牌";
+        return;
+    }
+
+    let tingTiles = [];
+
+    // 試著加每一張牌，看會不會胡
+    for(let t of allTiles){
+        let test = hand.slice();
+        test.push(t);
+        if(canWin(test)){
+            tingTiles.push(t);
         }
     }
 
-    // 去除重複
-    ting = [...new Set(ting)].filter(x => x !== "undefined萬" && x !== "undefined筒" && x !== "undefined條");
-
-    if(ting.length === 0){
-        document.getElementById("result").innerHTML = "❌ 目前沒有聽牌（簡易判斷）";
+    if(tingTiles.length === 0){
+        document.getElementById("result").innerHTML = "❌ 目前沒有聽牌";
     } else {
         document.getElementById("result").innerHTML =
-            "🎉 你可能在聽：<b>" + ting.join("、") + "</b>";
+            "🎉 你聽的牌有：<b>" + tingTiles.join("、") + "</b>";
     }
 }
 </script>
 
 </body>
 </html>
+

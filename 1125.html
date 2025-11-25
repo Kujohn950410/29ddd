@@ -6,24 +6,13 @@
 <body>
 <div id="animate"></div>
 <script>
-let area = document.querySelector("body");
-area.addEventListener("keydown", function(event){
+setInterval(display, 3000);
+function display(){
 let elem = document.getElementById("animate");
-let x = elem.offsetLeft || 0;
-let y = elem.offsetTop || 0;
-let key = event.key;
-switch(key){
-case "ArrowUp":
-elem.style.top = (y-30) + 'px';
-break;
-case "ArrowDown":
-elem.style.top = (y+30) + 'px';
-break;
-case "ArrowLeft":
-elem.style.left = (x-30) + 'px';
-break;
-case "ArrowRight":
-elem.style.left = (x+30) + 'px';
-break;
+let x = Math.floor((Math.random() * 600) + 1);
+let y = Math.floor((Math.random() * 600) + 1);
+elem.style.left = x + "px";
+elem.style.top = y + "px";
 }
-});</script></body></html>
+</script>
+</body></html>

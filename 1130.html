@@ -9,3 +9,16 @@ document.write("<p>" + Date() + "</p>");
 </script>
 </body>
 </html>
+<script>
+let d = new Date();
+let time = d.getHours();
+if (time<10) {
+document.write("<b>Good morning</b>");
+}
+else if (time<18) {
+document.write("<b>Good day</b>");
+}
+else {
+document.write("<b>Good evening!</b>");
+}
+</script>

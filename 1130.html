@@ -1,4 +1,25 @@
 <!DOCTYPE html>
+<html><head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+#collapsible {background-color: #777; color: white; padding: 18px; width: 100%; border: none; text-align: left; fontsize: 15px;}
+#content {padding: 18px; display: none;}
+</style></head>
+<body>
+<button type="button" id="collapsible" onclick="show()">Collapsible</button>
+<div id="content">Hidden information here</div>
+<script>
+function show(){
+let elem=document.getElementById("content")
+if (elem.style.display === "block") {
+elem.style.display = "none";
+} else {
+elem.style.display = "block";
+}
+};
+</script>
+</body></html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="refresh" content="60">

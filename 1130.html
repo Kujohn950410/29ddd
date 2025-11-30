@@ -12,13 +12,13 @@ document.write("<p>" + Date() + "</p>");
 <script>
 let d = new Date();
 let time = d.getHours();
-if (time<10) {
-document.write("<b>Good morning</b>");
+if (time<12) {
+document.write("<b>早安</b>");
 }
 else if (time<18) {
-document.write("<b>Good day</b>");
+document.write("<b>午安</b>");
 }
 else {
-document.write("<b>Good evening!</b>");
+document.write("<b>晚安!</b>");
 }
 </script>

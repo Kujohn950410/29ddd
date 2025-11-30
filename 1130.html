@@ -10,11 +10,11 @@ let message = document.getElementById("info");
 message.innerHTML="";
 let x = document.getElementById("demo").value;
 try {
-if(x == "") throw "empty";
+if(x == "") throw "請重新輸入";
 if(isNaN(x)) throw "請重新輸入";
 x = Number(x);
 if(x < 4) throw "太少了，答錯了。";
-if(x === 4) throw "答對了";
+if(x == 4) throw "答對了";
 if(x > 4) throw "太多了，你確定？";
 }
 catch(err) {

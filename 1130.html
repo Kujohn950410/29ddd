@@ -1,44 +1,25 @@
-<style>
-#header {height:150px;background-color:#f9c81e;padding:1em}
-#article {height:400px;background-color:#fffaf3;padding:1em}
-</style><body>
-<div id="header"><h1>Header</h1></div>
-<div id="article">
-<p>碰碰胡是幾台</p>
-<button>Click me!</button>
-<p id="content">4台喔!</p>
-</div><script>
-let btn = document.querySelector("button");
-btn.addEventListener("click", function(){
-let x = document.getElementById("content");
-if (x.style.display === "none") {
-x.style.display = "block";
-} else {
-x.style.display = "none";
-}
-});
-</script></body>
 <!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="refresh" content="60">
-</head>
-<body>
+<html><body>
+<p>Please input a number between 5 and 10:</p>
+<input id="demo" type="text">
+<button type="button" onclick="test()">Test Input</button>
+<p id="info"></p>
 <script>
-document.write("<p>" + Date() + "</p>");
+function test() {
+let message = document.getElementById("info");
+message.innerHTML="";
+let x = document.getElementById("demo").value;
+try {
+if(x == "") throw "empty";
+if(isNaN(x)) throw "not a number";
+x = Number(x);
+if(x < 5) throw "too low";
+if(x > 10) throw "too high";
+}
+catch(err) {
+message.innerHTML = "Input is " + err;
+}
+}
 </script>
-</body>
-</html>
-<script>
-let d = new Date();
-let time = d.getHours();
-if (time<12) {
-document.write("<b>早安</b>");
-}
-else if (time<18) {
-document.write("<b>午安</b>");
-}
-else {
-document.write("<b>晚安!</b>");
-}
-</script>
+</body></html>
+

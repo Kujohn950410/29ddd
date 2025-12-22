@@ -13,7 +13,7 @@
 
     function drawChart() {
       var data = google.visualization.arrayToDataTable([
-        ['時間 (小時)', '溫度 (°C)'],
+        ['時間（小時）', '溫度（°C）'],
         [0, 22],
         [3, 21],
         [6, 20],
@@ -25,20 +25,18 @@
         [23, 23]
       ]);
 
+      // ⭐ 這裡就是你要求加入的 options
       var options = {
-        title: '一天當中的溫度變化',
-        hAxis: {
-          title: '時間（小時）'
-        },
-        vAxis: {
-          title: '溫度（°C）'
-        },
+        curveType: 'function',
+        hAxis: { title: '時間（小時）' },
+        vAxis: { title: '溫度（°C）' },
         legend: { position: 'bottom' }
       };
 
       var chart = new google.visualization.LineChart(
         document.getElementById('chart_div')
       );
+
       chart.draw(data, options);
     }
   </script>

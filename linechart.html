@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>一天當中的溫度變化</title>
+  <title>台東市 今日溫度變化圖</title>
 
   <!-- 載入 Google Charts -->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -14,19 +14,18 @@
     function drawChart() {
       var data = google.visualization.arrayToDataTable([
         ['時間（小時）', '溫度（°C）'],
-        [0, 22],
-        [3, 21],
-        [6, 20],
-        [9, 24],
-        [12, 28],
-        [15, 30],
-        [18, 27],
-        [21, 24],
-        [23, 23]
+        [0, 20],
+        [3, 19],
+        [6, 18],
+        [9, 21],
+        [12, 24],
+        [15, 26],
+        [18, 24],
+        [21, 22]
       ]);
 
-      // ⭐ 這裡就是你要求加入的 options
       var options = {
+        title: '台東市 今日溫度變化',
         curveType: 'function',
         hAxis: { title: '時間（小時）' },
         vAxis: { title: '溫度（°C）' },
@@ -36,11 +35,16 @@
       var chart = new google.visualization.LineChart(
         document.getElementById('chart_div')
       );
-
       chart.draw(data, options);
     }
   </script>
 </head>
+
+<body>
+  <h2>台東市 今日溫度變化</h2>
+  <div id="chart_div" style="width: 700px; height: 400px;"></div>
+</body>
+</html>
 
 <body>
   <h2>一天當中的溫度變化</h2>

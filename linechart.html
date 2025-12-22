@@ -1,20 +1,18 @@
-function drawChart() {
-var data = google.visualization.arrayToDataTable([
-['ID', 'Life Expectancy', 'Fertility Rate', 'Population'],
-['CAN', 80.66, 1.67, 33739900],['DEU', 79.84, 1.36, 81902307],['DNK', 78.6, 1.84, 5523095],
-['EGY', 72.73, 2.78, 79716203], ['GBR', 80.05, 2, 61801570]
+<div id="chart_div"></div> 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawChart);
+function drawChart(){
+}
+</script>
+var data = new google.visualization.arrayToDataTable([
+['number', 'Dogs'],
+[0, 0], [1, 10], [2, 23], [3, 17], [4, 18], [5, 9], [6, 11], [7, 27], [8, 33], [9, 40]
 ]);
 var options = {
-title: 'Correlation between life expectancy, fertility rate ' +
-'and population of some world countries (2010)',
-hAxis: {title: 'Life Expectancy'},
-vAxis: {title: 'Fertility Rate'},
-bubble: {textStyle: {fontSize: 11}}
+hAxis: {title: 'Time'},
+vAxis: {title: 'Popularity'}
 };
-var chart = new google.visualization.BubbleChart(document.getElementById('chart_div'));
+var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 chart.draw(data, options);
-}
-  <h2>Dogs Popularity Chart</h2>
-  <div id="chart_div" style="width: 600px; height: 400px;"></div>
-</body>
-</html>

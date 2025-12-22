@@ -7,3 +7,21 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart(){
 }
 </script>
+function drawChart() {
+var data = new google.visualization.arrayToDataTable([
+['number', 'Dogs'],
+[0, 0], [1, 10], [2, 23], [3, 17], [4, 18], [5, 9], [6, 11], [7, 27], [8, 33], [9, 40]
+]);
+}
+function drawChart() {
+var data = new google.visualization.arrayToDataTable([
+['number', 'Dogs'],
+[0, 0], [1, 10], [2, 23], [3, 17], [4, 18], [5, 9], [6, 11], [7, 27], [8, 33], [9, 40]
+]);
+var options = {
+hAxis: {title: 'Time'},
+vAxis: {title: 'Popularity'}
+};
+var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}

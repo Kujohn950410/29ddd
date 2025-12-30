@@ -1,18 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
-<link rel="stylesheet" href="colorbox.css">
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-
-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script src="jquery.colorbox-min.js"></script>
+<meta charset="UTF-8">
+<title>屏東縣人口年齡結構</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <body>
-<a class='gallery' href='img1.jpg'>Photo 1</a>
-<a class='gallery' href='img2.jpg'>Photo 2</a>
-<script>
-$(document).ready(function(){
-$('a.gallery').colorbox({rel:'group1', transition:"fade", slideshow:true, width:"70%", height:"70%"});
-});
-</script>
+<h2>屏東縣各鄉鎮 65 歲以上人口</h2>
+
+<table border="1">
+<thead>
+<tr>
+  <th>鄉鎮市區</th>
+  <th>65歲以上人口</th>
+</tr>
+</thead>
+<tbody id="result"></tbody>
+</table>
+
 </body>
 </html>

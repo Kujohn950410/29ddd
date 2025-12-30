@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="colorbox.css">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-
 /JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script>
-$(document).ready(function(){
-$("p").click(function(){
-$(this).hide("slow");
-});
-});
-</script>
+<script src="jquery.colorbox-min.js"></script>
 </head>
 <body>
-<p>If you click on me, I will disappear.</p>
-<p>Click me away!</p>
-<p>Click me too!</p>
+<a class='gallery' href='img1.jpg'>Photo 1</a>
+<a class='gallery' href='img2.jpg'>Photo 2</a>
+<script>
+$(document).ready(function(){
+$('a.gallery').colorbox({rel:'group1', transition:"fade", slideshow:true, width:"70%", height:"70%"});
+});
+</script>
 </body>
 </html>

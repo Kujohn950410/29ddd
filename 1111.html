@@ -1,23 +1,18 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-<meta charset="UTF-8">
-<title>屏東縣人口年齡結構</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<html>
+<head><meta charset="utf-8" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-
+p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-
+20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </head>
-
 <body>
-<h2>屏東縣各鄉鎮 65 歲以上人口</h2>
-
-<table border="1">
-<thead>
-<tr>
-  <th>鄉鎮市區</th>
-  <th>65歲以上人口</th>
-</tr>
-</thead>
-<tbody id="result"></tbody>
-</table>
-
+<div id="map" style="width: 600px; height: 400px"></div>
+<script>
+var map = L.map('map').setView([22.736571, 121.0657029], 17);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a
+href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+</script>
 </body>
 </html>
+

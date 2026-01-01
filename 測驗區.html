@@ -74,24 +74,3 @@ function test() {
 
 </body>
 </html>
-
-<!DOCTYPE html>
-<html>
-<body>
-<form>
-Please calculate 3 * 7: <input type="text" id="answer">
-</form>
-<button type="button">Check!</button>
-<script>
-let btn = document.querySelector("button");
-btn.addEventListener("click", function(){
-let answer=document.getElementById("answer").value;
-if (answer=="21"){
-alert("Correct!");
-}
-else{
-alert("Wrong!");
-}
-});
-</script>
-</body></html>

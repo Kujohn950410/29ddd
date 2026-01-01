@@ -19,27 +19,33 @@ body{margin: 0px;}
    <a href="測驗區.html">測驗區</a>
 
   
-<html><body>
 <p>碰碰胡是幾台</p>
 <input id="demo" type="text">
 <button type="button" onclick="test()">Test Input</button>
 <p id="info"></p>
+
 <script>
 function test() {
-let message = document.getElementById("info");
-message.innerHTML="";
-let x = document.getElementById("demo").value;
-try {
-if(x == "") throw "請重新輸入";
-if(isNaN(x)) throw "請重新輸入";
-x = Number(x);
-if(x < 4) throw "太少了，答錯了。";
-if(x == 4) throw "答對了";
-if(x > 4) throw "太多了，你確定？";
-}
-catch(err) {
-message.innerHTML = "結果顯示: " + err;
-}
+  let message = document.getElementById("info");
+  message.innerHTML = "";
+
+  let x = document.getElementById("demo").value;
+
+  try {
+    if (x === "") throw "請重新輸入";
+    if (isNaN(x)) throw "請重新輸入";
+
+    x = Number(x);
+
+    if (x < 4) throw "太少了，答錯了。";
+    if (x === 4) throw "答對了";
+    if (x > 4) throw "太多了，你確定？";
+  }
+  catch (err) {
+    message.innerHTML = "結果顯示: " + err;
+  }
 }
 </script>
-</body></html>
+
+</body>
+</html>

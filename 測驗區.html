@@ -44,85 +44,44 @@ body{margin: 0px;}
    <a href="測驗區.html">測驗區</a>
 </div>
 
-<p>碰碰胡是幾台</p>
-<input id="demo" type="text">
-<button type="button" onclick="test()">Test Input</button>
-<p id="info"></p>
+<p>Q1：碰碰胡是幾台？</p>
+<input id="demo1" type="text">
+<button onclick="test1()">提交</button>
+<p id="info1"></p>
+
+<p>Q2：一副台灣麻將共有幾張牌？</p>
+<input id="demo2" type="text">
+<button onclick="test2()">提交</button>
+<p id="info2"></p>
+
+<p>Q3：麻將一局最少幾名玩家？</p>
+<input id="demo3" type="text">
+<button onclick="test3()">提交</button>
+<p id="info3"></p>
 
 <script>
-function test() {
-  let message = document.getElementById("info");
-  message.innerHTML = "";
-
-  let x = document.getElementById("demo").value;
-
-  try {
-    if (x === "") throw "請重新輸入";
-    if (isNaN(x)) throw "請重新輸入";
-
-    x = Number(x);
-
-    if (x < 4) throw "太少了，答錯了。";
-    if (x === 4) throw "答對了";
-    if (x > 4) throw "太多了，你確定？";
-  }
-  catch (err) {
-    message.innerHTML = "結果顯示: " + err;
-  }
+function test1() {
+  let x = Number(document.getElementById("demo1").value);
+  let info = document.getElementById("info1");
+  if (!x) info.innerHTML="請輸入答案";
+  else if (x === 4) info.innerHTML="答對了！";
+  else info.innerHTML="答錯了！";
 }
-</script>
-  <p>一副台灣麻將共有幾張牌？</p>
-<input id="demo" type="text">
-<button type="button" onclick="test()">Test Input</button>
-<p id="info"></p>
 
-<script>
-function test() {
-  let message = document.getElementById("info");
-  message.innerHTML = "";
-
-  let x = document.getElementById("demo").value;
-
-  try {
-    if (x === "") throw "請重新輸入";
-    if (isNaN(x)) throw "請重新輸入";
-
-    x = Number(x);
-
-    if (x < 144) throw "太少了，答錯了。";
-    if (x === 144) throw "答對了";
-    if (x > 144) throw "太多了，你確定？";
-  }
-  catch (err) {
-    message.innerHTML = "結果顯示: " + err;
-  }
+function test2() {
+  let x = Number(document.getElementById("demo2").value);
+  let info = document.getElementById("info2");
+  if (!x) info.innerHTML="請輸入答案";
+  else if (x === 136) info.innerHTML="答對了！";
+  else info.innerHTML="答錯了！";
 }
-</script>
-<p>麻將一局最少幾名玩家？</p>
-<input id="demo" type="text">
-<button type="button" onclick="test()">Test Input</button>
-<p id="info"></p>
 
-<script>
-function test() {
-  let message = document.getElementById("info");
-  message.innerHTML = "";
-
-  let x = document.getElementById("demo").value;
-
-  try {
-    if (x === "") throw "請重新輸入";
-    if (isNaN(x)) throw "請重新輸入";
-
-    x = Number(x);
-
-    if (x < 4) throw "太少了，答錯了。";
-    if (x === 4) throw "答對了";
-    if (x > 4) throw "太多了，你確定？";
-  }
-  catch (err) {
-    message.innerHTML = "結果顯示: " + err;
-  }
+function test3() {
+  let x = Number(document.getElementById("demo3").value);
+  let info = document.getElementById("info3");
+  if (!x) info.innerHTML="請輸入答案";
+  else if (x === 4) info.innerHTML="答對了！";
+  else info.innerHTML="答錯了！";
 }
 </script>
 

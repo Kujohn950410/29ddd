@@ -1,67 +1,23 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-<meta charset="UTF-8">
-<title>測驗區</title>
+<!-- ===== 清除浮動 ===== -->
+<div style="clear:both;"></div>
 
-<style>
-.header {background-color: #f1f1f1; padding: 20px; text-align: center;}
-.nav {
-  background-color: black;
-  height: 50px;
-  position: sticky;
-  top:0px;
-  z-index:999;
-  width: 100%;
-}
-.nav a {
-  float: left;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-* {box-sizing: border-box;}
-.column {float: left; width: 50%; padding: 15px; height:auto;}
-@media screen and (max-width:600px) {
-  .column {width: 100%;}
-}
-.footer {clear: both; background-color: #f1f1f1; text-align: center;}
-body{margin: 0px;}
-</style>
-</head>
+<!-- ===== 測驗區 ===== -->
+<div class="column center-text" style="width:100%; height:auto;">
+  <h2>🀄 麻將小測驗</h2>
 
-<body>
-
-<div class="header">
-  <h1>測驗區</h1>
-</div>
-
-<div class="nav">
-   <a href="119.html">首頁</a>
-   <a href="麻將牌介紹與基本流程.html">麻將牌介紹與基本流程</a>
-   <a href="麻將台數計算.html">麻將台數計算</a>
-   <a href="測驗區.html">測驗區</a>
-</div>
-
-<!-- ===== 測驗 1 ===== -->
-<div class="column">
+  <!-- 測驗 1 -->
   <p>Q1：碰碰胡是幾台？</p>
   <input id="demo1" type="text">
   <button type="button" onclick="test1()">提交答案</button>
   <p id="info1"></p>
-</div>
 
-<!-- ===== 測驗 2 ===== -->
-<div class="column">
+  <!-- 測驗 2 -->
   <p>Q2：一副台灣麻將共有幾張牌？</p>
   <input id="demo2" type="text">
   <button type="button" onclick="test2()">提交答案</button>
   <p id="info2"></p>
-</div>
 
-<!-- ===== 測驗 3 ===== -->
-<div class="column">
+  <!-- 測驗 3 -->
   <p>Q3：麻將一局最少幾名玩家？</p>
   <input id="demo3" type="text">
   <button type="button" onclick="test3()">提交答案</button>
@@ -69,68 +25,25 @@ body{margin: 0px;}
 </div>
 
 <script>
-/* ===== 測驗 1 ===== */
 function test1() {
   let message = document.getElementById("info1");
-  message.innerHTML = "";
-  let x = document.getElementById("demo1").value;
-
-  try {
-    if (x === "") throw "請輸入答案";
-    if (isNaN(x)) throw "請輸入數字";
-
-    x = Number(x);
-
-    if (x < 4) throw "太少了，答錯了";
-    if (x === 4) throw "答對了！碰碰胡是 4 台";
-    if (x > 4) throw "太多了，你確定？";
-  }
-  catch(err) {
-    message.innerHTML = "結果顯示: " + err;
-  }
+  let x = Number(document.getElementById("demo1").value);
+  if (!x) { message.innerHTML="請輸入答案"; return; }
+  message.innerHTML = (x===4) ? "✅ 答對了！碰碰胡是 4 台" : "❌ 答錯了";
 }
 
-/* ===== 測驗 2 ===== */
 function test2() {
   let message = document.getElementById("info2");
-  message.innerHTML = "";
-  let x = document.getElementById("demo2").value;
-
-  try {
-    if (x === "") throw "請輸入答案";
-    if (isNaN(x)) throw "請輸入數字";
-
-    x = Number(x);
-
-    if (x === 136) throw "答對了！一副台灣麻將共有 136 張牌";
-    else throw "答錯了，答案是 136 張";
-  }
-  catch(err) {
-    message.innerHTML = "結果顯示: " + err;
-  }
+  let x = Number(document.getElementById("demo2").value);
+  if (!x) { message.innerHTML="請輸入答案"; return; }
+  message.innerHTML = (x===136) ? "✅ 答對了！一副麻將 136 張" : "❌ 答錯了";
 }
 
-/* ===== 測驗 3 ===== */
 function test3() {
   let message = document.getElementById("info3");
-  message.innerHTML = "";
-  let x = document.getElementById("demo3").value;
-
-  try {
-    if (x === "") throw "請輸入答案";
-    if (isNaN(x)) throw "請輸入數字";
-
-    x = Number(x);
-
-    if (x === 4) throw "答對了！麻將一局最少 4 名玩家";
-    else throw "答錯了，答案是 4 名玩家";
-  }
-  catch(err) {
-    message.innerHTML = "結果顯示: " + err;
-  }
+  let x = Number(document.getElementById("demo3").value);
+  if (!x) { message.innerHTML="請輸入答案"; return; }
+  message.innerHTML = (x===4) ? "✅ 答對了！最少 4 名玩家" : "❌ 答錯了";
 }
 </script>
-
-</body>
-</html>
 

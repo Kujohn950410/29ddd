@@ -1,58 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>麻將學園</title>
+
 <style>
-.header {background-color: 	#ffffff; padding: 30px; text-align: center;}
-.nav {background-color: black; height: 50px; position: sticky; top:0px; z-index:999;}
-.nav a {float: left; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}
-* {box-sizing: border-box;}
-.column {float: left; width: 50%; padding: 15px; height:500px;}
+.header {background-color:#ffffff; padding:30px; text-align:center;}
+.nav {background-color:black; height:50px; position:sticky; top:0; z-index:999;}
+.nav a {float:left; color:white; text-align:center; padding:14px 16px; text-decoration:none;}
+.nav span {float:right; color:white; padding:14px 16px; font-size:14px;}
+* {box-sizing:border-box;}
+.column {float:left; width:50%; padding:15px; height:500px;}
 @media screen and (max-width:600px) {
-.column {width: 100%;}
+  .column {width:100%;}
 }
-.center-text {text-align: center;}
-.footer {clear: both; background-color:#FFFFFF; text-align: center;}
-body{margin: 0px;}
+.center-text {text-align:center;}
+.footer {clear:both; background-color:#FFFFFF; text-align:center;}
+body {margin:0;}
 </style>
 
-<body>
-<div class="header"><h1>麻將學園</h1></div>
-  
-<div class="nav">
-  <a href="119.html">首頁</a>
-   <a href="麻將牌介紹與基本流程.html">麻將牌介紹與基本流程</a>
-  <a href="麻將台數計算.html">麻將台數計算</a>
-  
+<script>
+function updateTime() {
+  document.getElementById("time").innerHTML =
+    new Date().toLocaleString('zh-TW', {
+      year:'numeric',
+      month:'2-digit',
+      day:'2-digit',
+      hour:'2-digit',
+      minute:'2-digit'
+    });
+}
+setInterval(updateTime, 1000);
+</script>
+</head>
+
+<body onload="updateTime()">
+
+<div class="header">
+  <h1>麻將學園</h1>
 </div>
 
-  <div class="column center-text">
+<div class="nav">
+  <a href="119.html">首頁</a>
+  <a href="麻將牌介紹與基本流程.html">麻將牌介紹與基本流程</a>
+  <a href="麻將台數計算.html">麻將台數計算</a>
+
+  <!-- 導覽列右上角時間 -->
+  <span id="time"></span>
+</div>
+
+<div class="column center-text">
   <h2>簡短介紹</h2>
   <p>麻將是一款結合策略、記憶與運氣的四人遊戲。</p>
   <p>本網站將帶你從新手入門，到老手的進階思考，一次掌握麻將的精髓。</p>
-    <img src="PixVerse_Image_Effect_prompt_.jpg" style="width:60%;">
+  <img src="PixVerse_Image_Effect_prompt_.jpg" style="width:60%;">
 </div>
-  
+
 <div class="column center-text">
   <h2>打麻將的由來</h2>
-  <p>麻將起源於19 世紀的中國，最初是一種娛樂消遣，後來逐漸演變成多人競技遊戲。</p>
-  <p>早期的麻將牌多以竹子、骨頭或象牙製成，並以四人對局的形式傳播開來。</p>
- <img src="ffffyn.jpg" style="width:60%;">
-  </div>
-  
-  <div class="column center-text">
+  <p>麻將起源於19 世紀的中國，最初是一種娛樂消遣。</p>
+  <p>後來逐漸演變成多人競技遊戲。</p>
+  <img src="ffffyn.jpg" style="width:60%;">
+</div>
+
+<div class="column center-text">
   <h2>為什麼要打麻將?</h2>
-  <p>打麻將不只是遊戲，也是社交活動。它可以訓練記憶力、觀察力與計算能力，</p>
-  <p>同時增進朋友和家人的互動，是娛樂與益智兼具的活動。</p>
+  <p>打麻將不只是遊戲，也是社交活動。</p>
+  <p>能訓練記憶力、觀察力與計算能力。</p>
   <img src="cover-thumb.jpg" style="width:60%;">
 </div>
-  
-</body>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="refresh" content="30">
-</head>
-<body>
-<h1>Show current time</h1>
-<script>
-document.write("<p>" + Date() + "</p>");
-</script>
+
 </body>
 </html>
+

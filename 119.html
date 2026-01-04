@@ -44,3 +44,29 @@ body{margin: 0px;}
 </div>
   
 </body>
+<div id="map" style="height:400px;"></div>
+<script>
+function initMap() {
+  const map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: 22.6730, lng: 120.4810 }, // 屏東市中心
+    zoom: 12,
+  });
+
+  const locations = [
+    { name: "自摸的問題 麻將棋藝館", pos: { lat: 22.6730, lng: 120.4810 }},
+    { name: "毅大師24H麻將館", pos: { lat: 22.6730, lng: 120.4815 }},
+    { name: "出棋不藝麻將競技館", pos: { lat: 22.6750, lng: 120.4830 }},
+    { name: "誼緣坊麻將棋藝館", pos: { lat: 22.6770, lng: 120.4820 }},
+    { name: "百戰百勝麻將量販店", pos: { lat: 22.6760, lng: 120.4800 }},
+  ];
+
+  locations.forEach(loc => {
+    new google.maps.Marker({
+      position: loc.pos,
+      map,
+      title: loc.name
+    });
+  });
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=你的APIKEY&callback=initMap" async defer></script>

@@ -1,54 +1,8 @@
-<style>
-.header {background-color: 	#ffffff; padding: 30px; text-align: center;}
-.nav {background-color: black; height: 50px; position: sticky; top:0px; z-index:999;}
-.nav a {float: left; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}
-* {box-sizing: border-box;}
-.column {float: left; width: 50%; padding: 15px; height:500px;}
-@media screen and (max-width:600px) {
-  .column {width: 100%;}
-}
-.center-text {text-align: center;}
-.footer {clear: both; background-color:#FFFFFF; text-align: center;}
-body{margin: 0px;}
-</style>
-
-<body>
-<div class="header"><h1>麻將學園</h1></div>
-  
-<div class="nav">
-  <a href="119.html">首頁</a>
-   <a href="麻將牌介紹與基本流程.html">麻將牌介紹與基本流程</a>
-  <a href="麻將台數計算.html">麻將台數計算</a>
-  
-</div>
-
-  <div class="column center-text">
-  <h2>簡短介紹</h2>
-  <p>麻將是一款結合策略、記憶與運氣的四人遊戲。</p>
-  <p>本網站將帶你從新手入門，到老手的進階思考，一次掌握麻將的精髓。</p>
-    <img src="PixVerse_Image_Effect_prompt_.jpg" style="width:60%;">
-</div>
-  
-<div class="column center-text">
-  <h2>打麻將的由來</h2>
-  <p>麻將起源於19 世紀的中國，最初是一種娛樂消遣，後來逐漸演變成多人競技遊戲。</p>
-  <p>早期的麻將牌多以竹子、骨頭或象牙製成，並以四人對局的形式傳播開來。</p>
- <img src="ffffyn.jpg" style="width:60%;">
-  </div>
-  
-  <div class="column center-text">
-  <h2>為什麼要打麻將?</h2>
-  <p>打麻將不只是遊戲，也是社交活動。它可以訓練記憶力、觀察力與計算能力，</p>
-  <p>同時增進朋友和家人的互動，是娛樂與益智兼具的活動。</p>
-  <img src="cover-thumb.jpg" style="width:60%;">
-</div>
-  
-</body>
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>屏東麻將館分布地圖</title>
+<title>麻將學園</title>
 
 <!-- Leaflet CSS -->
 <link
@@ -61,72 +15,92 @@ body {
   margin: 0;
   font-family: Arial, "微軟正黑體";
 }
-.header {
-  background-color: black;
-  color: white;
-  padding: 15px;
-  text-align: center;
+
+/* 原本樣式 */
+.header {background-color:#ffffff; padding:30px; text-align:center;}
+.nav {background-color:black; height:50px; position:sticky; top:0; z-index:999;}
+.nav a {float:left; color:white; text-align:center; padding:14px 16px; text-decoration:none;}
+.column {float:left; width:50%; padding:15px; height:500px;}
+.center-text {text-align:center;}
+@media screen and (max-width:600px) {
+  .column {width:100%;}
+}
+
+/* 地圖區 */
+.map-title {
+  background-color:black;
+  color:white;
+  text-align:center;
+  padding:15px;
+  clear: both;
 }
 #map {
   height: 500px;
-}
-.info {
-  padding: 15px;
-  text-align: center;
 }
 </style>
 </head>
 
 <body>
 
+<!-- 標題 -->
 <div class="header">
-  <h1>屏東麻將館分布（Leaflet + OpenStreetMap）</h1>
+  <h1>麻將學園</h1>
+</div>
+
+<!-- 導覽列 -->
+<div class="nav">
+  <a href="119.html">首頁</a>
+  <a href="麻將牌介紹與基本流程.html">麻將牌介紹與基本流程</a>
+  <a href="麻將台數計算.html">麻將台數計算</a>
+</div>
+
+<!-- 內容區 -->
+<div class="column center-text">
+  <h2>簡短介紹</h2>
+  <p>麻將是一款結合策略、記憶與運氣的四人遊戲。</p>
+  <p>本網站將帶你從新手入門，到老手的進階思考。</p>
+</div>
+
+<div class="column center-text">
+  <h2>打麻將的由來</h2>
+  <p>麻將起源於 19 世紀的中國。</p>
+</div>
+
+<div class="column center-text">
+  <h2>為什麼要打麻將？</h2>
+  <p>可以訓練記憶力與計算能力。</p>
+</div>
+
+<!-- 地圖標題 -->
+<div class="map-title">
+  <h2>屏東麻將館分布（Leaflet + OpenStreetMap）</h2>
   <p>Data Visualization</p>
 </div>
 
+<!-- 地圖 -->
 <div id="map"></div>
-
-<div class="info">
-  <p>📍 點擊地圖上的標記即可查看麻將館名稱</p>
-</div>
 
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-// 建立地圖（中心在屏東市）
+// 建立地圖
 const map = L.map('map').setView([22.6730, 120.4880], 12);
 
-// 載入 OpenStreetMap 圖層
+// OpenStreetMap 圖層
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap'
 }).addTo(map);
 
-// 麻將館資料（示意，可自行增加或修改）
+// 麻將館資料
 const mahjongPlaces = [
-  {
-    name: "自摸的問題 麻將棋藝館",
-    lat: 22.6729,
-    lng: 120.4881
-  },
-  {
-    name: "毅大師 24H 麻將館",
-    lat: 22.6738,
-    lng: 120.4902
-  },
-  {
-    name: "出棋不藝 麻將競技館",
-    lat: 22.6750,
-    lng: 120.4855
-  },
-  {
-    name: "誼緣坊 麻將棋藝館",
-    lat: 22.6762,
-    lng: 120.4820
-  }
+  { name: "自摸的問題 麻將棋藝館", lat: 22.6729, lng: 120.4881 },
+  { name: "毅大師 24H 麻將館", lat: 22.6738, lng: 120.4902 },
+  { name: "出棋不藝 麻將競技館", lat: 22.6750, lng: 120.4855 },
+  { name: "誼緣坊 麻將棋藝館", lat: 22.6762, lng: 120.4820 }
 ];
 
-// 在地圖上加標記
+// 加標記
 mahjongPlaces.forEach(place => {
   L.marker([place.lat, place.lng])
     .addTo(map)
@@ -136,4 +110,3 @@ mahjongPlaces.forEach(place => {
 
 </body>
 </html>
-api/js?key=你的APIKEY&callback=initMap" async defer></script>

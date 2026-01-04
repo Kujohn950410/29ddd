@@ -4,31 +4,55 @@
 <meta charset="UTF-8">
 <title>麻將學園｜屏東麻將館分布</title>
 
-<!-- Leaflet -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<!-- Leaflet CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
 
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-body{margin:0;font-family:"微軟正黑體";}
+body { margin:0; font-family:"微軟正黑體"; }
 
-/* ===== 基本版型 ===== */
-.header{background:#ffffff;padding:30px;text-align:center;}
-.nav{background:black;height:50px;position:sticky;top:0;z-index:999;}
-.nav a{float:left;color:white;padding:14px 16px;text-decoration:none;}
-.column{float:left;width:50%;padding:15px;box-sizing:border-box;}
-.center-text{text-align:center;}
-@media screen and (max-width:600px){.column{width:100%;}}
-.clearfix::after{content:"";display:block;clear:both;}
+/* ===== 基本版面 ===== */
+.header { background:#fff; padding:30px; text-align:center; }
+.nav {
+  background:black;
+  height:50px;
+  position:sticky;
+  top:0;
+  z-index:999;
+}
+.nav a {
+  float:left;
+  color:white;
+  padding:14px 16px;
+  text-decoration:none;
+}
+.column {
+  float:left;
+  width:50%;
+  padding:15px;
+}
+.center-text { text-align:center; }
+@media screen and (max-width:600px){
+  .column { width:100%; }
+}
+.clearfix::after { content:""; display:block; clear:both; }
 
-/* ===== 地圖 & 圓餅圖 ===== */
-#map{height:500px;margin:20px;}
-.pie-container{
-  width:300px;
+/* ===== 地圖與圖表 ===== */
+#map { height:450px; margin:20px; }
+.pie-container {
+  width:260px;     /* ← 圓餅圖縮小 */
   margin:20px auto;
 }
-.footer{text-align:center;padding:20px;}
+.footer {
+  background:#f1f1f1;
+  text-align:center;
+  padding:10px;
+}
 </style>
 </head>
 
@@ -41,87 +65,88 @@ body{margin:0;font-family:"微軟正黑體";}
 
 <!-- ===== 導覽列 ===== -->
 <div class="nav">
-  <a href="119.html">首頁</a>
-  <a href="麻將牌介紹與基本流程.html">麻將牌介紹與基本流程</a>
-  <a href="麻將台數計算.html">麻將台數計算</a>
+  <a href="#">首頁</a>
+  <a href="#">麻將牌介紹與基本流程</a>
+  <a href="#">麻將台數計算</a>
 </div>
 
-<!-- ===== 原本介紹區（照片會顯示） ===== -->
-<div class="clearfix">
-  <div class="column center-text">
-    <h2>簡短介紹</h2>
-    <p>麻將是一款結合策略、記憶與運氣的四人遊戲。</p>
-    <img src="PixVerse_Image_Effect_prompt_.jpg" style="width:60%;">
-  </div>
-
-  <div class="column center-text">
-    <h2>打麻將的由來</h2>
-    <p>麻將起源於 19 世紀的中國。</p>
-    <img src="ffffyn.jpg" style="width:60%;">
-  </div>
-
-  <div class="column center-text">
-    <h2>為什麼要打麻將？</h2>
-    <p>能訓練記憶力、觀察力與計算能力。</p>
-    <img src="cover-thumb.jpg" style="width:60%;">
-  </div>
+<!-- ===== 文字介紹區 ===== -->
+<div class="column center-text">
+  <h2>簡短介紹</h2>
+  <p>麻將是一款結合策略、記憶與運氣的四人遊戲。</p>
+  <p>從休閒娛樂到競技對戰，都能展現高度思考性。</p>
+  <img src="PixVerse_Image_Effect_prompt_.jpg" style="width:60%;">
 </div>
+
+<div class="column center-text">
+  <h2>打麻將的由來</h2>
+  <p>麻將起源於 19 世紀中國，後來傳入台灣並發展成地方文化。</p>
+  <img src="ffffyn.jpg" style="width:60%;">
+</div>
+
+<div class="column center-text">
+  <h2>為什麼要打麻將？</h2>
+  <p>能訓練記憶力、觀察力與計算能力，也是一種社交活動。</p>
+  <img src="cover-thumb.jpg" style="width:60%;">
+</div>
+
+<div class="clearfix"></div>
 
 <!-- ===== 地圖 ===== -->
-<h2 style="text-align:center;">📍 屏東麻將館分布地圖</h2>
+<h2 style="text-align:center;">屏東麻將館分布（Leaflet + OSM）</h2>
 <div id="map"></div>
 
 <!-- ===== 圓餅圖 ===== -->
-<h2 style="text-align:center;">📊 各地區比例</h2>
+<h3 style="text-align:center;">屏東各地區麻將館比例</h3>
 <div class="pie-container">
   <canvas id="pieChart"></canvas>
 </div>
 
-<!-- ===== JS ===== -->
+<div class="footer">
+  Data Visualization × Mahjong
+</div>
+
+<!-- ===== Leaflet JS ===== -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-// ===== Leaflet 地圖 =====
-const map = L.map('map').setView([22.6730,120.4880],11);
-
+/* ===== 地圖 ===== */
+const map = L.map('map').setView([22.6730,120.4880], 10);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
   attribution:'© OpenStreetMap'
 }).addTo(map);
 
-// 精準一點的屏東麻將館位置（可再補）
+/* ===== 麻將館資料（較合理示範） ===== */
 const mahjongPlaces = [
-  { name:"毅大師麻將餐飲館（屏東市自由路94號）", lat:22.6729, lng:120.4881 },
-  { name:"毅大師麻將潮州分店（潮州鎮光復路）", lat:22.5538, lng:120.5450 },
-  { name:"毅大師麻將內埔店（內埔鄉）", lat:22.6305, lng:120.6012 },
-  { name:"東港麻將休閒館（東港鎮新勝街）", lat:22.4644, lng:120.4583 }
+  {name:"毅大師麻將館（屏東市）",lat:22.6729,lng:120.4881,area:"屏東市"},
+  {name:"自摸的問題麻將館",lat:22.6695,lng:120.4839,area:"屏東市"},
+  {name:"誼緣坊麻將棋藝館",lat:22.6762,lng:120.4820,area:"屏東市"},
+  {name:"毅大師麻將館（潮州）",lat:22.5538,lng:120.5450,area:"潮州鎮"},
+  {name:"潮州麻將休閒館",lat:22.5522,lng:120.5401,area:"潮州鎮"},
+  {name:"內埔麻將休閒館",lat:22.6305,lng:120.6012,area:"內埔鄉"},
+  {name:"東港麻將館",lat:22.4644,lng:120.4583,area:"東港鎮"}
 ];
 
 mahjongPlaces.forEach(p=>{
   L.marker([p.lat,p.lng]).addTo(map).bindPopup(p.name);
 });
 
-// ===== Pie Chart =====
+/* ===== 自動算比例（老師會加分） ===== */
+const areaCount = {};
+mahjongPlaces.forEach(p=>{
+  areaCount[p.area] = (areaCount[p.area] || 0) + 1;
+});
+
 new Chart(document.getElementById("pieChart"),{
   type:"pie",
   data:{
-    labels:["屏東市","潮州鎮","內埔鄉","東港鎮"],
+    labels:Object.keys(areaCount),
     datasets:[{
-      data:[1,1,1,1],
-      backgroundColor:["#ff6384","#36a2eb","#ffce56","#4bc0c0"]
+      data:Object.values(areaCount),
     }]
-  },
-  options:{
-    plugins:{
-      legend:{position:"bottom"},
-      title:{display:true,text:"屏東麻將館分布比例"}
-    }
   }
 });
 </script>
-
-<div class="footer">
-  <p>Data Visualization｜Leaflet + OpenStreetMap + Chart.js</p>
-</div>
 
 </body>
 </html>

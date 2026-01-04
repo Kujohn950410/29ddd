@@ -14,9 +14,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-body { margin:0; font-family:"微軟正黑體"; }
-
 /* ===== 基本版面 ===== */
+body { margin:0; font-family:"微軟正黑體"; }
 .header { background:#fff; padding:30px; text-align:center; }
 .nav {
   background:black;
@@ -31,28 +30,16 @@ body { margin:0; font-family:"微軟正黑體"; }
   padding:14px 16px;
   text-decoration:none;
 }
-.column {
-  float:left;
-  width:50%;
-  padding:15px;
-}
+.nav a:hover { background-color: #333; }
+.column { float:left; width:50%; padding:15px; }
 .center-text { text-align:center; }
-@media screen and (max-width:600px){
-  .column { width:100%; }
-}
+@media screen and (max-width:600px){ .column { width:100%; } }
 .clearfix::after { content:""; display:block; clear:both; }
 
 /* ===== 地圖與圖表 ===== */
 #map { height:450px; margin:20px; }
-.pie-container {
-  width:260px;     /* ← 圓餅圖縮小 */
-  margin:20px auto;
-}
-.footer {
-  background:#f1f1f1;
-  text-align:center;
-  padding:10px;
-}
+.pie-container { width:260px; margin:20px auto; }
+.footer { background:#f1f1f1; text-align:center; padding:10px; }
 </style>
 </head>
 
@@ -65,9 +52,10 @@ body { margin:0; font-family:"微軟正黑體"; }
 
 <!-- ===== 導覽列 ===== -->
 <div class="nav">
-  <a href="#">首頁</a>
-  <a href="#">麻將牌介紹與基本流程</a>
-  <a href="#">麻將台數計算</a>
+  <a href="119.html">首頁</a>
+  <a href="麻將牌介紹與基本流程.html">麻將牌介紹與基本流程</a>
+  <a href="麻將台數計算.html">麻將台數計算</a>
+  <a href="測驗區.html">測驗區</a>
 </div>
 
 <!-- ===== 文字介紹區 ===== -->
@@ -81,12 +69,14 @@ body { margin:0; font-family:"微軟正黑體"; }
 <div class="column center-text">
   <h2>打麻將的由來</h2>
   <p>麻將起源於 19 世紀中國，後來傳入台灣並發展成地方文化。</p>
+  <p>早期的麻將牌多以竹子、骨頭或象牙製成，並以四人對局的形式傳播開來。</p>
   <img src="ffffyn.jpg" style="width:60%;">
 </div>
 
 <div class="column center-text">
   <h2>為什麼要打麻將？</h2>
-  <p>能訓練記憶力、觀察力與計算能力，也是一種社交活動。</p>
+  <p>打麻將不只是遊戲，也是社交活動。能訓練記憶力、觀察力與計算能力。</p>
+  <p>同時增進朋友和家人的互動，是娛樂與益智兼具的活動。</p>
   <img src="cover-thumb.jpg" style="width:60%;">
 </div>
 
@@ -110,13 +100,13 @@ body { margin:0; font-family:"微軟正黑體"; }
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-/* ===== 地圖 ===== */
+// ===== 地圖設定 =====
 const map = L.map('map').setView([22.6730,120.4880], 10);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
   attribution:'© OpenStreetMap'
 }).addTo(map);
 
-/* ===== 麻將館資料（較合理示範） ===== */
+// ===== 麻將館資料 =====
 const mahjongPlaces = [
   {name:"毅大師麻將館（屏東市）",lat:22.6729,lng:120.4881,area:"屏東市"},
   {name:"自摸的問題麻將館",lat:22.6695,lng:120.4839,area:"屏東市"},
@@ -124,14 +114,17 @@ const mahjongPlaces = [
   {name:"毅大師麻將館（潮州）",lat:22.5538,lng:120.5450,area:"潮州鎮"},
   {name:"潮州麻將休閒館",lat:22.5522,lng:120.5401,area:"潮州鎮"},
   {name:"內埔麻將休閒館",lat:22.6305,lng:120.6012,area:"內埔鄉"},
-  {name:"東港麻將館",lat:22.4644,lng:120.4583,area:"東港鎮"}
+  {name:"東港麻將館",lat:22.4644,lng:120.4583,area:"東港鎮"},
+  {name:"萬丹麻將館",lat:22.5760,lng:120.5012,area:"萬丹鄉"},
+  {name:"長治麻將館",lat:22.7085,lng:120.5390,area:"長治鄉"}
 ];
 
+// ===== 加標記 =====
 mahjongPlaces.forEach(p=>{
   L.marker([p.lat,p.lng]).addTo(map).bindPopup(p.name);
 });
 
-/* ===== 自動算比例（老師會加分） ===== */
+// ===== 圓餅圖 =====
 const areaCount = {};
 mahjongPlaces.forEach(p=>{
   areaCount[p.area] = (areaCount[p.area] || 0) + 1;
@@ -143,10 +136,17 @@ new Chart(document.getElementById("pieChart"),{
     labels:Object.keys(areaCount),
     datasets:[{
       data:Object.values(areaCount),
+      backgroundColor:[
+        '#FF6384','#36A2EB','#FFCE56','#8AFF33','#FF9F40','#9B59B6'
+      ]
     }]
-  }
+  },
+  options:{ responsive:true, plugins:{ legend:{ position:'bottom' } } }
 });
 </script>
+
+</body>
+</html>
 
 </body>
 </html>

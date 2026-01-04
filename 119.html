@@ -44,29 +44,96 @@ body{margin: 0px;}
 </div>
   
 </body>
-<div id="map" style="height:400px;"></div>
-<script>
-function initMap() {
-  const map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: 22.6730, lng: 120.4810 }, // 屏東市中心
-    zoom: 12,
-  });
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>屏東麻將館分布地圖</title>
 
-  const locations = [
-    { name: "自摸的問題 麻將棋藝館", pos: { lat: 22.6730, lng: 120.4810 }},
-    { name: "毅大師24H麻將館", pos: { lat: 22.6730, lng: 120.4815 }},
-    { name: "出棋不藝麻將競技館", pos: { lat: 22.6750, lng: 120.4830 }},
-    { name: "誼緣坊麻將棋藝館", pos: { lat: 22.6770, lng: 120.4820 }},
-    { name: "百戰百勝麻將量販店", pos: { lat: 22.6760, lng: 120.4800 }},
-  ];
+<!-- Leaflet CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
 
-  locations.forEach(loc => {
-    new google.maps.Marker({
-      position: loc.pos,
-      map,
-      title: loc.name
-    });
-  });
+<style>
+body {
+  margin: 0;
+  font-family: Arial, "微軟正黑體";
 }
+.header {
+  background-color: black;
+  color: white;
+  padding: 15px;
+  text-align: center;
+}
+#map {
+  height: 500px;
+}
+.info {
+  padding: 15px;
+  text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>屏東麻將館分布（Leaflet + OpenStreetMap）</h1>
+  <p>Data Visualization</p>
+</div>
+
+<div id="map"></div>
+
+<div class="info">
+  <p>📍 點擊地圖上的標記即可查看麻將館名稱</p>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+// 建立地圖（中心在屏東市）
+const map = L.map('map').setView([22.6730, 120.4880], 12);
+
+// 載入 OpenStreetMap 圖層
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap'
+}).addTo(map);
+
+// 麻將館資料（示意，可自行增加或修改）
+const mahjongPlaces = [
+  {
+    name: "自摸的問題 麻將棋藝館",
+    lat: 22.6729,
+    lng: 120.4881
+  },
+  {
+    name: "毅大師 24H 麻將館",
+    lat: 22.6738,
+    lng: 120.4902
+  },
+  {
+    name: "出棋不藝 麻將競技館",
+    lat: 22.6750,
+    lng: 120.4855
+  },
+  {
+    name: "誼緣坊 麻將棋藝館",
+    lat: 22.6762,
+    lng: 120.4820
+  }
+];
+
+// 在地圖上加標記
+mahjongPlaces.forEach(place => {
+  L.marker([place.lat, place.lng])
+    .addTo(map)
+    .bindPopup(`<b>${place.name}</b>`);
+});
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=你的APIKEY&callback=initMap" async defer></script>
+
+</body>
+</html>
+api/js?key=你的APIKEY&callback=initMap" async defer></script>
